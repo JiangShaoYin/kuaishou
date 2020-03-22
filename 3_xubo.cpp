@@ -4,6 +4,7 @@
 #include <sstream>
 #include <utility>
 #include <algorithm>
+#include <istream>
 using namespace std;
 int processNum(string num, int& beautifulType) {
     int orderedCnt = 1, sameCnt = 1;
@@ -20,12 +21,12 @@ int processNum(string num, int& beautifulType) {
         } else sameCnt = 1;
         if (sameCnt > maxSCnt) maxSCnt = sameCnt;
     }
-    if (orderedCnt < 3 && sameCnt < 3) {
+    if (maxOCnt < 3 && maxSCnt < 3) {
         beautifulType = 0;
         return -1;
     }
-    beautifulType = (sameCnt >= orderedCnt ? 2 : 1);
-    return (sameCnt >= orderedCnt ? sameCnt : orderedCnt);  
+    beautifulType = (maxSCnt >= maxOCnt ? 2 : 1);
+    return (maxSCnt >= maxOCnt ? maxSCnt : maxOCnt);  
 }
 struct cmp {
     bool operator()(const pair<string, pair<int, int> >& a, const pair<string, pair<int, int> >& b) {
@@ -37,12 +38,17 @@ struct cmp {
     }
 };
 int main() {
-    string s;
+    string input;
     vector<string> nums;
     vector<pair<string, pair<int, int> > > beautifulNums;
-    while (getline(cin, s, ',')) {
-        cout << "s is " << s << endl;
-        nums.push_back(s);
+    while (cin >> input) {
+        istringstream iss(input);
+        int integer;
+        char ch;
+        while (iss >> integer) {
+            nums.push_back(std::to_string(integer));
+            iss >> ch;
+        }
     }
     for (auto num : nums) {
         int beautifulType = 0; //豹子号还是顺子号还是普通号， 普通号为0，顺子号为1，豹子号为2
