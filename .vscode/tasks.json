@@ -29,6 +29,7 @@
         "-g",
         "${file}",
         "-o",
+        "-std=c++11",
         "${fileDirname}/${fileBasenameNoExtension}"
       ],
       "options": {
