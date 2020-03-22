@@ -48,7 +48,7 @@ int main() {
         int beautifulType = 0; //豹子号还是顺子号还是普通号， 普通号为0，顺子号为1，豹子号为2
         int weight = processNum(num, beautifulType);
         if (beautifulType != 0) {
-            beautifulNums.push_back({num, {weight, beautifulType}});
+            beautifulNums.push_back(make_pair(num, make_pair(weight, beautifulType)));
         }
     }
     if (beautifulNums.empty()) {
